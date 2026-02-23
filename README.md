@@ -15,8 +15,41 @@ CaliACCSetupsViewer is a Next.js + TypeScript + Tailwind CSS web app to browse a
   - Spanish
   - German
   - French
-- Persists search text using session storage (cleaner URL)
-- Shows loading spinner overlay during search/reset actions
+- PWA install support for Android and iOS
+
+## Protected Area (In Progress)
+
+A new protected area is available under `/dashboard` with Supabase authentication.
+
+Current implementation includes:
+
+- Login (`/login`) and Register (`/register`)
+- Route protection via middleware
+- Protected dashboard (`/dashboard`)
+- Manual setup insertion (JSON + metadata)
+- Lap time insertion
+- Latest records list for both tables
+
+## Supabase Setup
+
+1. Create a Supabase project.
+2. Copy `.env.example` to `.env.local` and set:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+```
+
+3. Run SQL schema from:
+
+- `supabase/schema.sql`
+
+This creates:
+
+- `setups_manual`
+- `lap_times`
+
+with Row Level Security (users can access only their own rows).
 
 ## Tech Stack
 
@@ -24,6 +57,7 @@ CaliACCSetupsViewer is a Next.js + TypeScript + Tailwind CSS web app to browse a
 - [React](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
+- [Supabase](https://supabase.com/)
 
 ## Local Development
 
