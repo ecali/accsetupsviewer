@@ -1,20 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import AppHeader from "./components/AppHeader";
+import AppFooter from "./components/AppFooter";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "accsetupsviewer",
-  description: "accsetupsviewer web application",
+  title: "CaliACCSetupsViewer",
+  description: "CaliACCSetupsViewer web application",
+  icons: {
+    icon: "/accv-logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -23,11 +17,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className="flex min-h-screen flex-col antialiased">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  var saved = localStorage.getItem("theme");
+                  var isDark = saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                  if (isDark) document.documentElement.classList.add("dark");
+                  else document.documentElement.classList.remove("dark");
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+        <AppHeader />
+        <div className="flex-1">{children}</div>
+        <AppFooter />
       </body>
     </html>
   );
