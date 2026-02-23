@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import AppHeader from "./components/AppHeader";
 import AppFooter from "./components/AppFooter";
 import "./globals.css";
@@ -33,9 +34,13 @@ export default function RootLayout({
             `,
           }}
         />
-        <AppHeader />
+        <Suspense fallback={<div className="h-[57px] border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-950" />}>
+          <AppHeader />
+        </Suspense>
         <div className="flex-1">{children}</div>
-        <AppFooter />
+        <Suspense fallback={<div className="h-[61px] border-t border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-950" />}>
+          <AppFooter />
+        </Suspense>
       </body>
     </html>
   );
